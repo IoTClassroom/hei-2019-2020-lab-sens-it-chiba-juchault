@@ -32,9 +32,9 @@ SIZE_OUTPUT = $(OUTPUT_NAME).siz
 # ---------
 # TOOLCHAIN
 # ---------
-CC = arm-none-eabi-gcc
-BIN_TOOL  = arm-none-eabi-objcopy
-SIZE_TOOL = arm-none-eabi-size
+CC = C:/Users/cleme/Desktop/H4/Progemb/gcc-arm-none-eabi-8-2019-q3-update/bin/arm-none-eabi-gcc
+BIN_TOOL  = C:/Users/cleme/Desktop/H4/Progemb/gcc-arm-none-eabi-8-2019-q3-update/bin/arm-none-eabi-objcopy
+SIZE_TOOL = C:/Users/cleme/Desktop/H4/Progemb/gcc-arm-none-eabi-8-2019-q3-update/bin/arm-none-eabi-size
 
 
 # -------------------
