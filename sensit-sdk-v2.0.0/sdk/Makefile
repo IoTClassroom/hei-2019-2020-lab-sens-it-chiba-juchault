@@ -7,7 +7,9 @@
 # SDK LIBRARY
 # -----------
 LIB_NAME = SENSIT_SDK_V2.0.0
-LIB_PATH = lib
+LIB_PATH = "C:/Users/Augustin/Desktop/Cours/ITI/Programmation Embarquée/Antoine/TP1/hei-2019-2020-lab-sens-it-chiba-juchault/sensit-sdk-v2.0.0/sdk/lib"
+BIN_PATH = "C:/Users/Augustin/Desktop/Cours/ITI/Programmation Embarquée/Antoine/TP1/hei-2019-2020-lab-sens-it-chiba-juchault/sensit-sdk-v2.0.0/sdk/bin"
+OBJ_PATH = "C:/Users/Augustin/Desktop/Cours/ITI/Programmation Embarquée/Antoine/TP1/hei-2019-2020-lab-sens-it-chiba-juchault/sensit-sdk-v2.0.0/sdk/obj"
 
 
 # --------------
