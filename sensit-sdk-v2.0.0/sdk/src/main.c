@@ -10,14 +10,14 @@
 /******* INCLUDES **************************************************/
 #include "sensit_types.h"
 #include "sensit_api.h"
-#include "error.o"
-#include "button.o"
-#include "battery.o"
-#include "radio_api.o"
-#include "hts221.o"
-#include "ltr329.o"
-#include "fxos8700.o"
-#include "discovery.o"
+#include "error.h"
+#include "button.h"
+#include "battery.h"
+#include "radio_api.h"
+#include "hts221.h"
+#include "ltr329.h"
+#include "fxos8700.h"
+#include "discovery.h"
 
 /******** DEFINES **************************************************/
 #define MEASUREMENT_PERIOD                 3600 /* Measurement & Message sending period, in second */
@@ -31,8 +31,8 @@ u8 firmware_version[] = "TEMPLATE";
 typedef struct 
 {
     u8 Event_ID : 4;
-    s16 temperature : 8;
-    u16 humidity : 8;
+    s16 temperature : 16;
+    u16 humidity : 16;
 } data_s;
 
 
