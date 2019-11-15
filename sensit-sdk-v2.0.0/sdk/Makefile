@@ -7,13 +7,13 @@
 # SDK LIBRARY
 # -----------
 LIB_NAME = SENSIT_SDK_V2.0.0
-LIB_PATH = C:/Users/cleme/Desktop/H4/Progemb/hei-2019-2020-lab-sens-it-chiba-juchault/sensit-sdk-v2.0.0/sdk/lib
+LIB_PATH = C:/Users/cleme/Desktop/H4/Progemb/lab-sensit/sensit-sdk-v2.0.0/sdk/lib
 
 # --------------
 # OUTPUT FOLDERS
 # --------------
-BIN_PATH = C:/Users/cleme/Desktop/H4/Progemb/hei-2019-2020-lab-sens-it-chiba-juchault/sensit-sdk-v2.0.0/sdk/bin
-OBJ_PATH = C:/Users/cleme/Desktop/H4/Progemb/hei-2019-2020-lab-sens-it-chiba-juchault/sensit-sdk-v2.0.0/sdk/obj
+BIN_PATH = C:/Users/cleme/Desktop/H4/Progemb/lab-sensit/sensit-sdk-v2.0.0/sdk/bin
+OBJ_PATH = C:/Users/cleme/Desktop/H4/Progemb/lab-sensit/sensit-sdk-v2.0.0/sdk/obj
 
 
 # ------------
@@ -29,9 +29,9 @@ SIZE_OUTPUT = $(OUTPUT_NAME).siz
 # ---------
 # TOOLCHAIN
 # ---------
-CC = C:/Users/cleme/Desktop/H4/Progemb/8-2019-q3-update/arm-none-eabi/bin/arm-none-eabi-gcc
-BIN_TOOL  = C:/Users/cleme/Desktop/H4/Progemb/8-2019-q3-update/arm-none-eabi/bin/arm-none-eabi-objcopy
-SIZE_TOOL = C:/Users/cleme/Desktop/H4/Progemb/8-2019-q3-update/arm-none-eabi/bin/arm-none-eabi-size
+CC = C:/Users/cleme/Desktop/H4/Progemb/update/bin/arm-none-eabi-gcc
+BIN_TOOL  = C:/Users/cleme/Desktop/H4/Progemb/update/bin/arm-none-eabi-objcopy
+SIZE_TOOL = C:/Users/cleme/Desktop/H4/Progemb/update/bin/arm-none-eabi-size
 
 
 # -------------------
