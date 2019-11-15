@@ -19,10 +19,22 @@
 #include "fxos8700.h"
 #include "discovery.h"
 
+/******** DEFINES **************************************************/
+#define MEASUREMENT_PERIOD                 3600 /* Measurement & Message sending period, in second */
+
+
 /******* GLOBAL VARIABLES ******************************************/
 u8 firmware_version[] = "TEMPLATE";
 
 /*******************************************************************/
+
+typedef struct 
+{
+    u8 Event_ID : 4;
+    s16 temperature : 8;
+    u16 humidity : 8;
+} data_s;
+
 
 int main()
 {
@@ -30,6 +42,11 @@ int main()
     button_e btn;
     u16 battery_level;
     bool send = FALSE;
+    
+    /* Discovery mydata variable */
+    discovery data_s data = {0};
+    discovery_payload_s payload;
+    data_s mydata ={0};
 
     /* Start of initialization */
 
@@ -44,13 +61,8 @@ int main()
     err = HTS221_init();
     ERROR_parser(err);
 
-    /* Initialize light sensor */
-    err = LTR329_init();
-    ERROR_parser(err);
-
-    /* Initialize accelerometer */
-    err = FXOS8700_init();
-    ERROR_parser(err);
+    /* Initialize RTC alarm timer */
+    SENSIT_API_set_rtc_alarm(MEASUREMENT_PERIOD);
 
     /* Clear pending interrupt */
     pending_interrupt = 0;
@@ -67,6 +79,17 @@ int main()
         /* RTC alarm interrupt handler */
         if ((pending_interrupt & INTERRUPT_MASK_RTC) == INTERRUPT_MASK_RTC)
         {
+            /* Do a temperatue & relative humidity measurement */
+            err = HTS221_measure(&(mydata.temperature),&(mydata.humidity));
+            if (err != HTS221_ERR_NONE)
+            {
+                ERROR_parser(err);
+            }
+            else
+            {
+                /* Set send flag */
+                send = TRUE;
+            }
             /* Clear interrupt */
             pending_interrupt &= ~INTERRUPT_MASK_RTC;
         }
@@ -85,11 +108,12 @@ int main()
 
             if (btn == BUTTON_THREE_PRESSES)
             {
+                /* Set button flag to TRUE */
+                data.button = TRUE;
+
                 /* Force a RTC alarm interrupt to do a new measurement */
                 pending_interrupt |= INTERRUPT_MASK_RTC;
 
-                /* Set send Sigfox */
-                send = TRUE;
             }
             else if (btn == BUTTON_FOUR_PRESSES)
             {
@@ -119,13 +143,21 @@ int main()
         if (send == TRUE)
         {
 
+            data_s data ={} init(15);
+            data.Event_ID = 0b1111;
             /* Send the message */
-            err = RADIO_API_send_message(RGB_MAGENTA, (u8 *)"HI", 2, FALSE, NULL);
+            err = RADIO_API_send_message(RGB_MAGENTA, (u8 *)&mydata, sizeof(mydata), FALSE, NULL);
             /* Parse the error code */
             ERROR_parser(err);
 
+            /* Clear button flag */
+            data.button = FALSE;
+
             /* Clear send flag */
             send = FALSE;
+
+
+            
         }
 
         /* Check if all interrupt have been clear */
@@ -136,5 +168,3 @@ int main()
         }
     } /* End of while */
 }
-
-/*******************************************************************/
