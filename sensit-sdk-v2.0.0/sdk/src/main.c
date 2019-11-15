@@ -31,8 +31,10 @@ u8 firmware_version[] = "TEMPLATE";
 typedef struct 
 {
     u8 Event_ID : 4;
-    s16 temperature : 16;
-    u16 humidity : 16;
+    s16 temperature;
+    u16 humidity;
+    u16 brightness;
+
 } data_s;
 
 
@@ -42,10 +44,9 @@ int main()
     button_e btn;
     u16 battery_level;
     bool send = FALSE;
+    u16 trash;
     
     /* Discovery mydata variable */
-    discovery data_s data = {0};
-    discovery_payload_s payload;
     data_s mydata ={0};
 
     /* Start of initialization */
@@ -59,6 +60,10 @@ int main()
 
     /* Initialize temperature & humidity sensor */
     err = HTS221_init();
+    ERROR_parser(err);
+
+    /* Initialize light sensor */
+    err = LTR329_init();
     ERROR_parser(err);
 
     /* Initialize RTC alarm timer */
@@ -90,6 +95,24 @@ int main()
                 /* Set send flag */
                 send = TRUE;
             }
+
+            /* Active light sensor */
+            LTR329_set_active_mode(LTR329_GAIN_96X);
+            /* Do a brightness measurement */
+            err = LTR329_measure(&(mydata.brightness), &trash);
+            /* Sensor back in standby mode */
+            LTR329_set_standby_mode();
+
+            if (err != LTR329_ERR_NONE)
+            {
+                ERROR_parser(err);
+            }
+            else
+            {
+                /* Set send flag */
+                send = TRUE;
+            }
+
             /* Clear interrupt */
             pending_interrupt &= ~INTERRUPT_MASK_RTC;
         }
@@ -143,8 +166,6 @@ int main()
         if (send == TRUE)
         {
 
-            data_s data ={} init(15);
-            data.Event_ID = 0b1111;
             /* Send the message */
             err = RADIO_API_send_message(RGB_MAGENTA, (u8 *)&mydata, sizeof(mydata), FALSE, NULL);
             /* Parse the error code */
