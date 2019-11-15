@@ -10,14 +10,14 @@
 /******* INCLUDES **************************************************/
 #include "sensit_types.h"
 #include "sensit_api.h"
-#include "error.h"
-#include "button.h"
-#include "battery.h"
-#include "radio_api.h"
-#include "hts221.h"
-#include "ltr329.h"
-#include "fxos8700.h"
-#include "discovery.h"
+#include "error.o"
+#include "button.o"
+#include "battery.o"
+#include "radio_api.o"
+#include "hts221.o"
+#include "ltr329.o"
+#include "fxos8700.o"
+#include "discovery.o"
 
 /******** DEFINES **************************************************/
 #define MEASUREMENT_PERIOD                 3600 /* Measurement & Message sending period, in second */
